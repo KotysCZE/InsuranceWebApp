@@ -1,0 +1,103 @@
+﻿@model IEnumerable<MVCProjekt.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Jméno
+            </th>
+            <th>
+                Přijimení
+            </th>
+            <th>
+                E-mailová adresa
+            </th>
+            <th>
+                Telefonní číslo
+            </th>
+            <th>
+                Ulice
+            </th>
+            <th>
+                PSČ
+            </th>
+            <th>
+                Město
+            </th>
+            <th>
+                Stát
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@if (!Model.Any()) //Ověří zda databáze je prázdná
+        {
+            <tr>
+                <td>
+                    Tabula je prázdná
+                </td>
+            </tr>
+        }
+
+        else
+        {
+        int number_of_values = 0;
+        @foreach (var item in Model)
+        {
+        number_of_values++;
+         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surnname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PSC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            @if (User.IsInRole(UserRoles.Admin))
+            {<td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Upravit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detail</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Smazat</a>
+            </td>
+            }
+            else
+            {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detail</a>
+                </td>
+            }
+            </tr>
+            }
+        <tr>Počet nalezených výsledků: @number_of_values</tr>
+}
+    </tbody>
+</table>
+<br>
+@if (User.IsInRole(UserRoles.Admin))
+{
+    <button type="button" class="btn btn-primary ">
+        <a asp-action="Create" class="text-light text-decoration-none">Vytvoření nového klienta</a>
+    </button>
+}
