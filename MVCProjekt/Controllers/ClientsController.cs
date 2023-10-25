@@ -44,7 +44,7 @@ namespace MVCProjekt.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
                 return NotFound();
@@ -97,7 +97,7 @@ namespace MVCProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surnname,Email,Street,PSC,City,State,Insurance_name,Phone")] Client client)
         {
-            if (id != client.Id)
+            if (id != client.ClientId)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace MVCProjekt.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.Id))
+                    if (!ClientExists(client.ClientId))
                     {
                         return NotFound();
                     }
@@ -134,7 +134,7 @@ namespace MVCProjekt.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
                 return NotFound();
@@ -164,7 +164,7 @@ namespace MVCProjekt.Controllers
 
         private bool ClientExists(int id)
         {
-          return (_context.Client?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Client?.Any(e => e.ClientId == id)).GetValueOrDefault();
         }
     }
 }

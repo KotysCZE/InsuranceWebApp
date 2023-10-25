@@ -39,7 +39,7 @@ namespace MVCProjekt.Controllers
             {
                 Microsoft.AspNetCore.Identity.SignInResult result =
                     await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if(result.Succeeded)
+                if (result.Succeeded)
                     return RedirectToLocal(returnUrl);
                 ModelState.AddModelError("Login error", "Neplatné přihlašovací údaje");
                 return View(model);
