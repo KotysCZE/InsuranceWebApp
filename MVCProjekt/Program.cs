@@ -51,7 +51,7 @@ app.MapControllerRoute(
 //{
 //RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 //UserManager<IdentityUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-//    IdentityUser? defaultAdminUser = await userManager.FindByEmailAsync("kotyscze@gmail.com");
+//    IdentityUser? defaultAdminUser = await userManager.FindByEmailAsync("");
 
 //    if (!await roleManager.RoleExistsAsync(UserRoles.User))
 //        await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
