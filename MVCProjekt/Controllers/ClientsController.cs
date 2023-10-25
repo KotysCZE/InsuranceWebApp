@@ -12,7 +12,7 @@ using MVCProjekt.Models;
 
 namespace MVCProjekt.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)] //Akce v tomto kontroleru může dělat vykonávat pouze přihlášený uživatel, až na vyjímky.
+    [Authorize(Roles = UserRoles.Admin)] //Akce v tomto kontroleru může dělat vykonávat pouze přihlášený uživatel, až na vyjímky..
     public class ClientsController : Controller
     {
         private readonly ApplicationDbContext _context;
