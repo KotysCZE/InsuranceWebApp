@@ -1,11 +1,13 @@
-﻿@model MVCProjekt.Models.Client
+﻿@using MVCProjekt.Extensions;
+@model MVCProjekt.Models.Client
+@{string bg = DarkModeAddOn.TimeCheckerBg(); string text = DarkModeAddOn.TimeCheckerText();}
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <div>
-    <h4>Upravit klienta</h4>
+    <h4>Detail klienta @ViewBag.Name</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -50,15 +52,119 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.State)
         </dd>
-        <dt class="col-sm-2">
-            Název pojištění
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Insurance_name)
-        </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Upravit</a> |
-    <a asp-action="Index">Zpět na seznam klientů</a>
+
+@if (ViewBag.Insurances.Count > 0)
+{ 
+    <div class="col-12">
+            <table class="table table-bordered text-@text">
+            <tr>
+                <th>
+                    Typ pojištění
+                </th>
+
+                <th>
+                    Výše pojištění
+                </th>
+                <th>
+                    Předmět pojištění
+                </th>
+    @if(User.IsInRole("admin"))
+    {
+                <th></th>
+    }
+            </tr>
+    @foreach (var item in ViewBag.Insurances)
+                {
+                 <tr>
+                        <td>
+                            <a asp-controller="Insurances" asp-action="Details" asp-route-id="@item.InsuranceId">@item.InsuranceName</a>
+                        </td>
+                        <td>
+                            @item.InsuranceValue Kč
+                        </td>
+                        <td>
+                            @item.ObjectOfInsurance
+                        </td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <td class="col-4 text-center">
+                                <a class="btn btn-warning" asp-controller="Insurances" asp-action="Edit" asp-route-id="@item.InsuranceId">Editovat</a>
+                                <a class="btn btn-danger" asp-controller="Insurances" asp-action="Delete" asp-route-id="@item.InsuranceId">Odstanit</a>
+                            </td>
+                        }
+                 </tr>
+            }
+        </table>
+        </div>
+            }
+        
+else
+{
+    <div class="col-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>Seznam pojištění je prázdný</th>
+            </tr>
+        </table>
+    </div>
+}
+
+@if(ViewBag.Comments.Count >= 1)
+{
+    <div class="col-6">
+        <table class="table table-bordered text-@text">
+            <tr>
+                <th>Datum přidání komentáře</th>
+                <th>Text komentáře</th>
+            </tr>
+        @foreach (var item in ViewBag.Comments)
+        { 
+            <tr>
+                <td>
+                    @item.DateOfInsert.ToString("dd.MM.yyyy")
+                </td>
+                <td>
+                @item.CommentText
+                </td>
+                <td>
+                    @if (User.IsInRole("admin")){
+                   <a class="btn btn-danger" asp-controller="Comments" asp-action="Delete" asp-route-id="@item.CommentId">Odstanit</a>
+                    }
+                </td>
+            </tr>
+            }
+        </table>
+        <div>
+            <a class="btn btn-primary col-3" asp-controller="Comments" asp-action="Create" asp-route-value="@Model?.ClientId">Přidat komentář</a>
+        </div>
+    </div>
+}
+else 
+{
+    <div class="col-6">
+        <table class="table table-bordered">
+            <tr>
+                <th>Nejsou přidány žádné komentáře</th>
+            </tr>
+        </table>
+        <div>
+        <a class="btn btn-primary col-3" asp-controller="Comments" asp-action="Create" asp-route-value="@Model?.ClientId">Přidat komentář</a>
+        </div>
+    </div>
+
+}
+
+<div class="text-sm-center p-4">
+    @if (User.IsInRole("admin"))
+    {
+        <a class="btn btn-primary" asp-controller="Insurances" asp-action="Create" asp-route-value="@Model?.ClientId">Přidat pojištění</a>
+        <a class="btn btn-warning" asp-controller="Clients" asp-action="Edit" asp-route-id="@Model?.ClientId">Editovat Pojištěnce</a>
+        <a class="btn btn-danger" asp-controller="Clients" asp-action="Delete" asp-route-id="@Model?.ClientId">Odstranit Pojištěnce</a>
+        <br>
+
+    }
 </div>
+<div>
+    <a asp-action="Index">Zpět na seznam klientů</a></div>

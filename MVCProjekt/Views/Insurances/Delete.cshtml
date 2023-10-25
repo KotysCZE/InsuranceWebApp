@@ -1,0 +1,43 @@
+﻿@model MVCProjekt.Models.Insurance
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Smazat pojištění č.@ViewBag.InsuranceId </h1>
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Jméno pojištěnce: 
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.Name
+        </dd>
+        <dt class = "col-sm-2">
+            Název pojištění: 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InsuranceName)
+        </dd>
+        <dt class = "col-sm-2">
+            Výše pojistného plnění:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InsuranceValue) Kč
+        </dd>
+        <dt class = "col-sm-2">
+            Předmět pojištění: 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ObjectOfInsurance)
+        </dd>
+    </dl>
+     <form asp-action="Delete">
+        <input type="hidden" name="idOfDeleted" value=@Model.InsuranceId/>
+        <input type="submit" value="Smazat" class="btn btn-danger"/>
+        <a asp-action="Details" asp-controller="Clients" asp-route-id="@ViewBag.ClientId">Zpět</a>
+    </form>
+</div>

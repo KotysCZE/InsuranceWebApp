@@ -1,28 +1,29 @@
-﻿@model LoginViewModel
-
+﻿@using MVCProjekt.Extensions;
+@model LoginViewModel
+@{string bg = DarkModeAddOn.TimeCheckerBg(); string text = DarkModeAddOn.TimeCheckerText();}
 @{
     ViewData["Title"] = "Přihlášení";
 }
-<div class="row">
+<div class="row bg-@bg">
     <div class="col-4">
         <form class="d-flex flex-column gap-2" asp-route-returnUrl="@ViewData["ReturnUrl"]">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger text-@text"></div>
             <div class="form-group">
-                <label asp-for="Email" class="form-label"></label>
+                <label asp-for="Email" class="form-label text-@text"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Password" class="form-label"></label>
+                <label asp-for="Password" class="form-label text-@text"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-check">
                 <input asp-for="RememberMe" class="form-check-input">
-                <label asp-for="RememberMe" class="form-check-label"></label>
+                <label asp-for="RememberMe" class="form-check-label text-@text"></label>
             </div>
-            <div class="form-group">
-                <button type="submit" class="clanky-tlacitko">Přihlásit se</button>
+            <div class="form-group text-@text">
+                <button type="submit" class="btn btn-primary">Přihlásit se</button>
             </div>
             <a asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]">Registrace</a>
         </form>

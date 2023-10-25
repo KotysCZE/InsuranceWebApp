@@ -1,0 +1,42 @@
+﻿@model MVCProjekt.Models.Insurance
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Detaily pojištění č.@ViewBag.InsuranceId</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Klient: 
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.Name
+        </dd>
+        <dt class = "col-sm-2">
+            Typ pojištění:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InsuranceName)
+        </dd>
+        <dt class = "col-sm-2">
+            Výše pojistného plnění: 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.InsuranceValue) Kč
+        </dd>
+        <dt class = "col-sm-2">
+            Předmět pojištění: 
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ObjectOfInsurance)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.InsuranceId" class="btn btn-primary">Upravit</a>
+    <a class="btn btn-danger" asp-controller="Insurances" asp-action="Delete" asp-route-id="@Model?.InsuranceId">Odstranit pojištění</a>
+    <br>
+    <a asp-action="Details" asp-controller="Clients" asp-route-id="@ViewBag.ClientId" class="my-1">Zpět</a>
+</div>

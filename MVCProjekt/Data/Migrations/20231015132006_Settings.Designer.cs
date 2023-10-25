@@ -4,6 +4,7 @@ using MVCProjekt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCProjekt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231015132006_Settings")]
+    partial class Settings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,31 +267,6 @@ namespace MVCProjekt.Data.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("MVCProjekt.Models.Comment", b =>
-                {
-                    b.Property<int>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"), 1L, 1);
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CommentText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfInsert")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("Comment");
-                });
-
             modelBuilder.Entity("MVCProjekt.Models.Insurance", b =>
                 {
                     b.Property<int>("InsuranceId")
@@ -371,17 +348,6 @@ namespace MVCProjekt.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MVCProjekt.Models.Comment", b =>
-                {
-                    b.HasOne("MVCProjekt.Models.Client", "Client")
-                        .WithMany("Comments")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-                });
-
             modelBuilder.Entity("MVCProjekt.Models.Insurance", b =>
                 {
                     b.HasOne("MVCProjekt.Models.Client", "Client")
@@ -395,8 +361,6 @@ namespace MVCProjekt.Data.Migrations
 
             modelBuilder.Entity("MVCProjekt.Models.Client", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Insurances");
                 });
 #pragma warning restore 612, 618

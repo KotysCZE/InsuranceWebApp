@@ -1,0 +1,39 @@
+﻿@model MVCProjekt.Models.Insurance
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<h4>Upravit pojištění č.@ViewBag.InsuranceId</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input asp-for="ClientId" type="hidden" value="@ViewBag.ClientId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InsuranceId" />
+            <div class="form-group">
+                <label asp-for="InsuranceName" class="control-label">Název pojištění</label>
+                <input asp-for="InsuranceName" class="form-control" />
+                <span asp-validation-for="InsuranceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InsuranceValue" class="control-label">Výše pojistného plnění</label>
+                <input asp-for="InsuranceValue" class="form-control" />
+                <span asp-validation-for="InsuranceValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ObjectOfInsurance" class="control-label">Předmět pojištění</label>
+                <input asp-for="ObjectOfInsurance" class="form-control" />
+                <span asp-validation-for="ObjectOfInsurance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Uložit" class="btn btn-primary my-1" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details" asp-controller="Clients" asp-route-id="@ViewBag.ClientId">Zpět</a>
+</div>
+

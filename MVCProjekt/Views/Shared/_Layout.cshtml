@@ -1,4 +1,5 @@
-﻿
+﻿@using MVCProjekt.Extensions;
+@{string bg = DarkModeAddOn.TimeCheckerBg(); string text = DarkModeAddOn.TimeCheckerText();}
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -9,9 +10,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVCProjekt.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="bg-@bg text-@text">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-@bg bg-@bg border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PojišťovnaApp</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -26,39 +27,44 @@
                         @if (User.IsInRole(UserRoles.Admin))
                         {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Create">Vytvoření nového klienta</a>
+                                <a class="nav-link text-@text" asp-area="" asp-controller="Clients" asp-action="Create">Vytvoření nového klienta</a>
                         </li>
                         }
                         @if ((User.IsInRole(UserRoles.Admin)) || (User.IsInRole(UserRoles.User)))
                         {
                         <li class="nav-item">
-                             <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">Seznam klientů</a>
+                                <a class="nav-link text-@text" asp-area="" asp-controller="Clients" asp-action="Index">Seznam klientů</a>
                         </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">O aplikaci</a>
+                            <a class="nav-link text-@text" asp-area="" asp-controller="Home" asp-action="Index">O aplikaci</a>
                         </li>
                     </ul>
-              
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        <div class="container flex-fill d-grid align-content-start">
+            @*Panel pro zobrazení aktuálních informací*@
+            <div class="sticky-top mt-4 flash-messages-container" style="grid-area: 1 / 1; height: min-content;">
+                @*@Html.RenderFlashMessages()*@
+            </div>
+            @*Hlavní obsah stránky*@
+            <main role="main" class="pb-3 row bg-@bg" style="grid-area: 1 / 1;">
+                @*Část pro vlastní obsah*@
+                @RenderBody()
+            </main>
+        </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+        <footer class="border-top footer text-muted bg-@bg">
+            <div class="container text-@text">
             Vzniklo v rámci závěrečného projektu rekvalifikačního kurzu od <a href="https://www.itnetwork.cz/">ITNetwork</a> - Vytvořil Jakub Kotrba
         </div>
-    </footer>
+        </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
