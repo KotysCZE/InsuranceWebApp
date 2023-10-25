@@ -156,25 +156,6 @@ namespace MVCProjekt.Controllers
             //return View(comment);
         }
 
-        // POST: Comments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (_context.Comment == null)
-        //    {
-        //        return Problem("Entity set 'ApplicationDbContext.Comment'  is null.");
-        //    }
-        //    var comment = await _context.Comment.FindAsync(id);
-        //    if (comment != null)
-        //    {
-        //        _context.Comment.Remove(comment);
-        //    }
-            
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         private bool CommentExists(int id)
         {
           return (_context.Comment?.Any(e => e.CommentId == id)).GetValueOrDefault();
