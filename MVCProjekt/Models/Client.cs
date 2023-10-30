@@ -28,6 +28,5 @@ namespace MVCProjekt.Models
         [RegularExpression(@"[0-9]{9}", ErrorMessage ="Zadejte prosím správný formát telefonního čísla bez předvolby")]
 
         public string Phone { get; set; } = "";
-
     }
 }
