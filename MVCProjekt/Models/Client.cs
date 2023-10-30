@@ -4,8 +4,11 @@ namespace MVCProjekt.Models
 {
     public class Client
     {
-        public int Id { get; set; }
+        public virtual List<Insurance>?Insurances { get; set; }
+        public virtual List<Comment>?Comments { get; set; }
+        public int ClientId { get; set; }
         [Required(ErrorMessage = "Zadejte jméno")]
+
         public string Name { get; set; } = "";
         [Required(ErrorMessage = "Zadejte přijímení")]
         public string Surnname { get; set; } = "";
@@ -21,7 +24,6 @@ namespace MVCProjekt.Models
         public string City { get; set; } = "";
         [Required(ErrorMessage = "Zadejte stát ")]
         public string State { get; set; } = "";
-        public string Insurance_name { get; set; } = "";
         [Required]
         [RegularExpression(@"[0-9]{9}", ErrorMessage ="Zadejte prosím správný formát telefonního čísla bez předvolby")]
 

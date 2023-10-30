@@ -1,0 +1,41 @@
+﻿@model MVCProjekt.Models.Insurance
+
+@{
+    ViewData["Title"] = "Přidat pojištění";
+}
+
+<h5>Přidat pojištění k @ViewBag.Name</h5>
+<hr />
+<form asp-action="Create">
+<input asp-for="ClientId" type="hidden" value="@ViewBag.ClientId"/>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container">
+        <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="InsuranceName" class="control-label">Název pojištění</label>
+                        <input asp-for="InsuranceName" class="form-control" placeholder="Pojištění majetku"/>
+                        <span asp-validation-for="InsuranceName" class="text-danger"></span>
+                </div>
+            </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="InsuranceValue" class="control-label">Výše pojistného plnění</label>
+                        <input asp-for="InsuranceValue" class="form-control" placeholder="10000 Kč" />
+                        <span asp-validation-for="InsuranceValue" class="text-danger"></span>
+                    </div>
+                </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                        <label asp-for="ObjectOfInsurance" class="control-label">Předmět pojištění</label>
+                        <input asp-for="ObjectOfInsurance" class="form-control" placeholder="Byt" />
+                        <span asp-validation-for="ObjectOfInsurance" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-center buttop">
+                <input type="submit" value="Uložit" class="btn btn-primary my-1" asp-route-value="@ViewBag.ClientId" />
+            </div>
+        </div>
+    </div>
+</form>

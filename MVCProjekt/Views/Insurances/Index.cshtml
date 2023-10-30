@@ -1,0 +1,55 @@
+﻿@using MVCProjekt.Extensions;
+@model IEnumerable<MVCProjekt.Models.Insurance>
+@{string bg = DarkModeAddOn.TimeCheckerBg(); string text = DarkModeAddOn.TimeCheckerText();}
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table text-@text">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsuranceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsuranceValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ObjectOfInsurance)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsuranceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsuranceValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObjectOfInsurance)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InsuranceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

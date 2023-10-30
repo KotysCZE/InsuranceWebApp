@@ -84,8 +84,5 @@ namespace MVCProjekt.Controllers
             await signInManager.SignOutAsync();
             return RedirectToLocal(null);
         }
-
-
-
     }
 }

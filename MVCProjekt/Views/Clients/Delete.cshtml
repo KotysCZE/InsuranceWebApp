@@ -4,7 +4,7 @@
     ViewData["Title"] = "Delete";
 }
 
-<h3>Opravdu chcete smazat tento záznam?</h3>
+<h3>Opravdu chcete smazat klienta @ViewBag.Name ?</h3>
 <div>
     <hr />
     <dl class="row">
@@ -53,8 +53,12 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ClientId" />
         <input type="submit" value="Smazat" class="btn btn-danger"/>
-        <a asp-action="Index">Zpět na seznam klientů</a>
+        <a asp-action="Index" class="btn btn-primary">Zpět na seznam klientů</a>
     </form>
+
+
+
+    test
 </div>

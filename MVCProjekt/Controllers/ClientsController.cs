@@ -28,9 +28,9 @@ namespace MVCProjekt.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-              return _context.Client != null ? 
-                          View(await _context.Client.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Client'  is null.");
+            return _context.Client != null ?
+                        View(await _context.Client.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Client'  is null.");
         }
 
 
@@ -49,6 +49,11 @@ namespace MVCProjekt.Controllers
             {
                 return NotFound();
             }
+            List<Comment> comments = _context.Comment.Where(x => x.ClientId == id).ToList();
+            List<Insurance> insurances = _context.Insurance.Where(x => x.ClientId == id).ToList();
+            ViewBag.Insurances = insurances;
+            ViewBag.Comments = comments;
+            ViewBag.Name = client.Name + " " + client.Surnname;
 
             return View(client);
         }
@@ -64,7 +69,7 @@ namespace MVCProjekt.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surnname,Email,Street,PSC,City,State,Insurance_name,Phone")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surnname,Email,Street,PSC,City,State,Phone")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +100,7 @@ namespace MVCProjekt.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surnname,Email,Street,PSC,City,State,Insurance_name,Phone")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surnname,Email,Street,PSC,City,State,Phone")] Client client)
         {
             if (id != client.ClientId)
             {
@@ -139,6 +144,7 @@ namespace MVCProjekt.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Name = client.Name + " " + client.Surnname;
 
             return View(client);
         }
@@ -148,16 +154,17 @@ namespace MVCProjekt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+           
             if (_context.Client == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Client'  is null.");
             }
             var client = await _context.Client.FindAsync(id);
+            ViewBag.Name = client.Name + " " + client.Surnname;
             if (client != null)
             {
                 _context.Client.Remove(client);
             }
-            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

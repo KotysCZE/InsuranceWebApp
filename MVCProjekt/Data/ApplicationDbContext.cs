@@ -11,5 +11,7 @@ namespace MVCProjekt.Data
         {
         }
         public DbSet<MVCProjekt.Models.Client>? Client { get; set; }
+        public DbSet<MVCProjekt.Models.Insurance>? Insurance { get; set; }
+        public DbSet<MVCProjekt.Models.Comment>? Comment { get; set; }
     }
 }

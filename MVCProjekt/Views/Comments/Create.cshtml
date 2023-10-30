@@ -1,0 +1,34 @@
+﻿@model MVCProjekt.Models.Comment
+
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    DateTime dateAndTime = DateTime.Now;
+}
+
+<h1>Interní poznámka</h1>
+
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="ClientId" type="hidden" value="@ViewBag.ClientId" />
+                <input asp-for="DateOfInsert" type="hidden" value="@DateTime.Now" />
+            <div class="form-group">
+                <label asp-for="CommentText" class="control-label">Text komentáře</label>
+                <textarea asp-for="CommentText" class="form-control" ></textarea>
+                <span asp-validation-for="CommentText" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-center buttop">
+                <input type="submit" value="Uložit" class="btn btn-primary my-2" asp-route-value="@ViewBag.ClientId"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Clients" asp-action="Details" asp-route-id="@ViewBag.ClientId">Zpět</a>
+</div>
+

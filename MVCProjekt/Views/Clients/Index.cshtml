@@ -1,10 +1,15 @@
-﻿@model IEnumerable<MVCProjekt.Models.Client>
+﻿@using MVCProjekt.Extensions;
+@using MVCProjekt.Models;
+@model IEnumerable<MVCProjekt.Models.Client>
+@{
+    string bg = DarkModeAddOn.TimeCheckerBg(); string text = DarkModeAddOn.TimeCheckerText();
+}
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<table class="table">
+<table class="table text-@text">
     <thead>
         <tr>
             <th>
@@ -39,7 +44,7 @@
         {
             <tr>
                 <td>
-                    Tabula je prázdná
+                    Tabulka je prázdná
                 </td>
             </tr>
         }
@@ -50,7 +55,7 @@
         @foreach (var item in Model)
         {
         number_of_values++;
-         <tr>
+         <tr class="text-@text">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -77,15 +82,15 @@
             </td>
             @if (User.IsInRole(UserRoles.Admin))
             {<td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Upravit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detail</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Smazat</a>
+                <a asp-action="Edit" asp-route-id="@item.ClientId">Upravit</a> |
+                <a asp-action="Details" asp-route-id="@item.ClientId">Detail</a> |
+                <a asp-action="Delete" asp-route-id="@item.ClientId">Smazat</a>
             </td>
             }
             else
             {
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Detail</a>
+                    <a asp-action="Details" asp-route-id="@item.ClientId">Detail</a>
                 </td>
             }
             </tr>
@@ -95,7 +100,7 @@
     </tbody>
 </table>
 <br>
-@if (User.IsInRole(UserRoles.Admin))
+@if (User.IsInRole("Admin"))
 {
     <button type="button" class="btn btn-primary ">
         <a asp-action="Create" class="text-light text-decoration-none">Vytvoření nového klienta</a>
